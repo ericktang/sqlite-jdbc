@@ -1038,7 +1038,7 @@ public abstract class JDBC3DatabaseMetaData extends org.sqlite.core.CoreDatabase
      *      java.lang.String, java.lang.String)
      */
     public ResultSet getAttributes(String c, String s, String t, String a) throws SQLException {
-        if (getAttributes == null) {
+        /*if (getAttributes == null) {
             getAttributes = conn.prepareStatement("select null as TYPE_CAT, null as TYPE_SCHEM, " +
                     "null as TYPE_NAME, null as ATTR_NAME, null as DATA_TYPE, " +
                     "null as ATTR_TYPE_NAME, null as ATTR_SIZE, null as DECIMAL_DIGITS, " +
@@ -1048,7 +1048,14 @@ public abstract class JDBC3DatabaseMetaData extends org.sqlite.core.CoreDatabase
                     "null as SCOPE_SCHEMA, null as SCOPE_TABLE, null as SOURCE_DATA_TYPE limit 0;");
         }
 
-        return getAttributes.executeQuery();
+        return getAttributes.executeQuery();*/
+    	return execute("select null as TYPE_CAT, null as TYPE_SCHEM, " +
+                    "null as TYPE_NAME, null as ATTR_NAME, null as DATA_TYPE, " +
+                    "null as ATTR_TYPE_NAME, null as ATTR_SIZE, null as DECIMAL_DIGITS, " +
+                    "null as NUM_PREC_RADIX, null as NULLABLE, null as REMARKS, null as ATTR_DEF, " +
+                    "null as SQL_DATA_TYPE, null as SQL_DATETIME_SUB, null as CHAR_OCTET_LENGTH, " +
+                    "null as ORDINAL_POSITION, null as IS_NULLABLE, null as SCOPE_CATALOG, " +
+                    "null as SCOPE_SCHEMA, null as SCOPE_TABLE, null as SOURCE_DATA_TYPE limit 0;");
     }
 
     /**
@@ -1056,13 +1063,16 @@ public abstract class JDBC3DatabaseMetaData extends org.sqlite.core.CoreDatabase
      *      java.lang.String, int, boolean)
      */
     public ResultSet getBestRowIdentifier(String c, String s, String t, int scope, boolean n) throws SQLException {
-        if (getBestRowIdentifier == null) {
+        /*if (getBestRowIdentifier == null) {
             getBestRowIdentifier = conn.prepareStatement("select null as SCOPE, null as COLUMN_NAME, " +
                     "null as DATA_TYPE, null as TYPE_NAME, null as COLUMN_SIZE, " +
                     "null as BUFFER_LENGTH, null as DECIMAL_DIGITS, null as PSEUDO_COLUMN limit 0;");
         }
 
-        return getBestRowIdentifier.executeQuery();
+        return getBestRowIdentifier.executeQuery();*/
+        return execute("select null as SCOPE, null as COLUMN_NAME, " +
+                    "null as DATA_TYPE, null as TYPE_NAME, null as COLUMN_SIZE, " +
+                    "null as BUFFER_LENGTH, null as DECIMAL_DIGITS, null as PSEUDO_COLUMN limit 0;");
     }
 
     /**
@@ -1070,13 +1080,16 @@ public abstract class JDBC3DatabaseMetaData extends org.sqlite.core.CoreDatabase
      *      java.lang.String, java.lang.String)
      */
     public ResultSet getColumnPrivileges(String c, String s, String t, String colPat) throws SQLException {
-        if (getColumnPrivileges == null) {
+        /*if (getColumnPrivileges == null) {
             getColumnPrivileges = conn.prepareStatement("select null as TABLE_CAT, null as TABLE_SCHEM, " +
                     "null as TABLE_NAME, null as COLUMN_NAME, null as GRANTOR, null as GRANTEE, " +
                     "null as PRIVILEGE, null as IS_GRANTABLE limit 0;");
         }
 
-        return getColumnPrivileges.executeQuery();
+        return getColumnPrivileges.executeQuery();*/
+    	return execute("select null as TABLE_CAT, null as TABLE_SCHEM, " +
+                    "null as TABLE_NAME, null as COLUMN_NAME, null as GRANTOR, null as GRANTEE, " +
+                    "null as PRIVILEGE, null as IS_GRANTABLE limit 0;");
     }
 
     // Column type patterns
@@ -1277,22 +1290,23 @@ public abstract class JDBC3DatabaseMetaData extends org.sqlite.core.CoreDatabase
      * @see java.sql.DatabaseMetaData#getSchemas()
      */
     public ResultSet getSchemas() throws SQLException {
-        if (getSchemas == null) {
+/*        if (getSchemas == null) {
             getSchemas = conn.prepareStatement("select null as TABLE_SCHEM, null as TABLE_CATALOG limit 0;");
         }
 
-        return getSchemas.executeQuery();
+        return getSchemas.executeQuery();*/
+        return execute("select null as TABLE_SCHEM, null as TABLE_CATALOG limit 0;");
     }
 
     /**
      * @see java.sql.DatabaseMetaData#getCatalogs()
      */
     public ResultSet getCatalogs() throws SQLException {
-        if (getCatalogs == null) {
+        /*if (getCatalogs == null) {
             getCatalogs = conn.prepareStatement("select null as TABLE_CAT limit 0;");
         }
-
-        return getCatalogs.executeQuery();
+        return getCatalogs.executeQuery();*/
+        return execute("select null as TABLE_CAT limit 0;");
     }
 
     /**
@@ -1570,7 +1584,7 @@ public abstract class JDBC3DatabaseMetaData extends org.sqlite.core.CoreDatabase
         } else {
             // loop over results from pragma call, getting specific info for each index
 
-            int i = 0;
+            //int i = 0;
             Iterator<ArrayList<Object>> indexIterator = indexList.iterator();
             ArrayList<Object> currentIndex;
 
@@ -1607,14 +1621,19 @@ public abstract class JDBC3DatabaseMetaData extends org.sqlite.core.CoreDatabase
      *      java.lang.String, java.lang.String)
      */
     public ResultSet getProcedureColumns(String c, String s, String p, String colPat) throws SQLException {
-        if (getProcedures == null) {
+        /*if (getProcedures == null) {
             getProcedureColumns = conn.prepareStatement("select null as PROCEDURE_CAT, " +
                     "null as PROCEDURE_SCHEM, null as PROCEDURE_NAME, null as COLUMN_NAME, " +
                     "null as COLUMN_TYPE, null as DATA_TYPE, null as TYPE_NAME, null as PRECISION, " +
                     "null as LENGTH, null as SCALE, null as RADIX, null as NULLABLE, " +
                     "null as REMARKS limit 0;");
         }
-        return getProcedureColumns.executeQuery();
+        return getProcedureColumns.executeQuery();*/
+    	return execute("select null as PROCEDURE_CAT, " +
+                    "null as PROCEDURE_SCHEM, null as PROCEDURE_NAME, null as COLUMN_NAME, " +
+                    "null as COLUMN_TYPE, null as DATA_TYPE, null as TYPE_NAME, null as PRECISION, " +
+                    "null as LENGTH, null as SCALE, null as RADIX, null as NULLABLE, " +
+                    "null as REMARKS limit 0;");
 
     }
 
@@ -1623,12 +1642,15 @@ public abstract class JDBC3DatabaseMetaData extends org.sqlite.core.CoreDatabase
      *      java.lang.String)
      */
     public ResultSet getProcedures(String c, String s, String p) throws SQLException {
-        if (getProcedures == null) {
+        /*if (getProcedures == null) {
             getProcedures = conn.prepareStatement("select null as PROCEDURE_CAT, null as PROCEDURE_SCHEM, " +
                     "null as PROCEDURE_NAME, null as UNDEF1, null as UNDEF2, null as UNDEF3, " +
                     "null as REMARKS, null as PROCEDURE_TYPE limit 0;");
         }
-        return getProcedures.executeQuery();
+        return getProcedures.executeQuery();*/
+    	return execute("select null as PROCEDURE_CAT, null as PROCEDURE_SCHEM, " +
+                    "null as PROCEDURE_NAME, null as UNDEF1, null as UNDEF2, null as UNDEF3, " +
+                    "null as REMARKS, null as PROCEDURE_TYPE limit 0;");
     }
 
     /**
@@ -1636,11 +1658,13 @@ public abstract class JDBC3DatabaseMetaData extends org.sqlite.core.CoreDatabase
      *      java.lang.String)
      */
     public ResultSet getSuperTables(String c, String s, String t) throws SQLException {
-        if (getSuperTables == null) {
+        /*if (getSuperTables == null) {
             getSuperTables = conn.prepareStatement("select null as TABLE_CAT, null as TABLE_SCHEM, " +
                     "null as TABLE_NAME, null as SUPERTABLE_NAME limit 0;");
         }
-        return getSuperTables.executeQuery();
+        return getSuperTables.executeQuery();*/
+    	return execute("select null as TABLE_CAT, null as TABLE_SCHEM, " +
+                "null as TABLE_NAME, null as SUPERTABLE_NAME limit 0;");
     }
 
     /**
@@ -1648,12 +1672,15 @@ public abstract class JDBC3DatabaseMetaData extends org.sqlite.core.CoreDatabase
      *      java.lang.String)
      */
     public ResultSet getSuperTypes(String c, String s, String t) throws SQLException {
-        if (getSuperTypes == null) {
+        /*if (getSuperTypes == null) {
             getSuperTypes = conn.prepareStatement("select null as TYPE_CAT, null as TYPE_SCHEM, " +
                     "null as TYPE_NAME, null as SUPERTYPE_CAT, null as SUPERTYPE_SCHEM, " +
                     "null as SUPERTYPE_NAME limit 0;");
         }
-        return getSuperTypes.executeQuery();
+        return getSuperTypes.executeQuery();*/
+    	return execute("select null as TYPE_CAT, null as TYPE_SCHEM, " +
+                "null as TYPE_NAME, null as SUPERTYPE_CAT, null as SUPERTYPE_SCHEM, " +
+                "null as SUPERTYPE_NAME limit 0;");
     }
 
     /**
@@ -1661,12 +1688,16 @@ public abstract class JDBC3DatabaseMetaData extends org.sqlite.core.CoreDatabase
      *      java.lang.String)
      */
     public ResultSet getTablePrivileges(String c, String s, String t) throws SQLException {
-        if (getTablePrivileges == null) {
+        /*if (getTablePrivileges == null) {
             getTablePrivileges = conn.prepareStatement("select  null as TABLE_CAT, "
                     + "null as TABLE_SCHEM, null as TABLE_NAME, null as GRANTOR, null "
                     + "GRANTEE,  null as PRIVILEGE, null as IS_GRANTABLE limit 0;");
         }
         return getTablePrivileges.executeQuery();
+        */
+    	return execute("select  null as TABLE_CAT, "
+                + "null as TABLE_SCHEM, null as TABLE_NAME, null as GRANTOR, null "
+                + "GRANTEE,  null as PRIVILEGE, null as IS_GRANTABLE limit 0;");
     }
 
     /**
@@ -1706,19 +1737,21 @@ public abstract class JDBC3DatabaseMetaData extends org.sqlite.core.CoreDatabase
      */
     public ResultSet getTableTypes() throws SQLException {
         checkOpen();
-        if (getTableTypes == null) {
+        /*if (getTableTypes == null) {
             getTableTypes = conn.prepareStatement("select 'TABLE' as TABLE_TYPE "
                     + "union select 'VIEW' as TABLE_TYPE;");
         }
         getTableTypes.clearParameters();
-        return getTableTypes.executeQuery();
+        return getTableTypes.executeQuery();*/
+        return execute("select 'TABLE' as TABLE_TYPE "
+                + "union select 'VIEW' as TABLE_TYPE;");
     }
 
     /**
      * @see java.sql.DatabaseMetaData#getTypeInfo()
      */
     public ResultSet getTypeInfo() throws SQLException {
-        if (getTypeInfo == null) {
+        /*if (getTypeInfo == null) {
             getTypeInfo = conn.prepareStatement("select " + "tn as TYPE_NAME, " + "dt as DATA_TYPE, "
                     + "0 as PRECISION, " + "null as LITERAL_PREFIX, " + "null as LITERAL_SUFFIX, "
                     + "null as CREATE_PARAMS, "
@@ -1753,7 +1786,38 @@ public abstract class JDBC3DatabaseMetaData extends org.sqlite.core.CoreDatabase
         }
 
         getTypeInfo.clearParameters();
-        return getTypeInfo.executeQuery();
+        return getTypeInfo.executeQuery();*/
+        return execute("select " + "tn as TYPE_NAME, " + "dt as DATA_TYPE, "
+                + "0 as PRECISION, " + "null as LITERAL_PREFIX, " + "null as LITERAL_SUFFIX, "
+                + "null as CREATE_PARAMS, "
+                + DatabaseMetaData.typeNullable
+                + " as NULLABLE, "
+                + "1 as CASE_SENSITIVE, "
+                + DatabaseMetaData.typeSearchable
+                + " as SEARCHABLE, "
+                + "0 as UNSIGNED_ATTRIBUTE, "
+                + "0 as FIXED_PREC_SCALE, "
+                + "0 as AUTO_INCREMENT, "
+                + "null as LOCAL_TYPE_NAME, "
+                + "0 as MINIMUM_SCALE, "
+                + "0 as MAXIMUM_SCALE, "
+                + "0 as SQL_DATA_TYPE, "
+                + "0 as SQL_DATETIME_SUB, "
+                + "10 as NUM_PREC_RADIX from ("
+                + "    select 'BLOB' as tn, "
+                + Types.BLOB
+                + " as dt union"
+                + "    select 'NULL' as tn, "
+                + Types.NULL
+                + " as dt union"
+                + "    select 'REAL' as tn, "
+                + Types.REAL
+                + " as dt union"
+                + "    select 'TEXT' as tn, "
+                + Types.VARCHAR
+                + " as dt union"
+                + "    select 'INTEGER' as tn, "
+                + Types.INTEGER + " as dt" + ") order by TYPE_NAME;");
     }
 
     /**
@@ -1761,14 +1825,17 @@ public abstract class JDBC3DatabaseMetaData extends org.sqlite.core.CoreDatabase
      *      int[])
      */
     public ResultSet getUDTs(String c, String s, String t, int[] types) throws SQLException {
-        if (getUDTs == null) {
+        /*if (getUDTs == null) {
             getUDTs = conn.prepareStatement("select  null as TYPE_CAT, null as TYPE_SCHEM, "
                     + "null as TYPE_NAME,  null as CLASS_NAME,  null as DATA_TYPE, null as REMARKS, "
                     + "null as BASE_TYPE " + "limit 0;");
         }
 
         getUDTs.clearParameters();
-        return getUDTs.executeQuery();
+        return getUDTs.executeQuery();*/
+        return execute("select  null as TYPE_CAT, null as TYPE_SCHEM, "
+                + "null as TYPE_NAME,  null as CLASS_NAME,  null as DATA_TYPE, null as REMARKS, "
+                + "null as BASE_TYPE " + "limit 0;");
     }
 
     /**
@@ -1776,12 +1843,15 @@ public abstract class JDBC3DatabaseMetaData extends org.sqlite.core.CoreDatabase
      *      java.lang.String)
      */
     public ResultSet getVersionColumns(String c, String s, String t) throws SQLException {
-        if (getVersionColumns == null) {
+        /*if (getVersionColumns == null) {
             getVersionColumns = conn.prepareStatement("select null as SCOPE, null as COLUMN_NAME, "
                     + "null as DATA_TYPE, null as TYPE_NAME, null as COLUMN_SIZE, "
                     + "null as BUFFER_LENGTH, null as DECIMAL_DIGITS, null as PSEUDO_COLUMN limit 0;");
         }
-        return getVersionColumns.executeQuery();
+        return getVersionColumns.executeQuery();*/
+        return execute("select null as SCOPE, null as COLUMN_NAME, "
+                + "null as DATA_TYPE, null as TYPE_NAME, null as COLUMN_SIZE, "
+                + "null as BUFFER_LENGTH, null as DECIMAL_DIGITS, null as PSEUDO_COLUMN limit 0;");
     }
 
     /**
