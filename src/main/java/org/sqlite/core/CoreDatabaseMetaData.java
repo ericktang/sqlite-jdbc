@@ -28,17 +28,6 @@ import org.sqlite.SQLiteConnection;
 public abstract class CoreDatabaseMetaData
 {
     protected SQLiteConnection              conn;
-    protected PreparedStatement
-            getTables             = null,   getTableTypes        = null,
-            getTypeInfo           = null,   getCatalogs          = null,
-            getSchemas            = null,   getUDTs              = null,
-            getColumnsTblName     = null,   getSuperTypes        = null,
-            getSuperTables        = null,   getTablePrivileges   = null,
-            getIndexInfo          = null,   getProcedures        = null,
-            getProcedureColumns   = null,   getAttributes        = null,
-            getBestRowIdentifier  = null,   getVersionColumns    = null,
-            getColumnPrivileges   = null;
-
     /**
      * Used to save generating a new statement every call.
      */
@@ -75,85 +64,7 @@ public abstract class CoreDatabaseMetaData
         if (conn == null || refCount > 0) {
             return;
         }
-
-        try {
-            if (getTables != null) {
-                getTables.close();
-            }
-            if (getTableTypes != null) {
-                getTableTypes.close();
-            }
-            if (getTypeInfo != null) {
-                getTypeInfo.close();
-            }
-            if (getCatalogs != null) {
-                getCatalogs.close();
-            }
-            if (getSchemas != null) {
-                getSchemas.close();
-            }
-            if (getUDTs != null) {
-                getUDTs.close();
-            }
-            if (getColumnsTblName != null) {
-                getColumnsTblName.close();
-            }
-            if (getSuperTypes != null) {
-                getSuperTypes.close();
-            }
-            if (getSuperTables != null) {
-                getSuperTables.close();
-            }
-            if (getTablePrivileges != null) {
-                getTablePrivileges.close();
-            }
-            if (getIndexInfo != null) {
-                getIndexInfo.close();
-            }
-            if (getProcedures != null) {
-                getProcedures.close();
-            }
-            if (getProcedureColumns != null) {
-                getProcedureColumns.close();
-            }
-            if (getAttributes != null) {
-                getAttributes.close();
-            }
-            if (getBestRowIdentifier != null) {
-                getBestRowIdentifier.close();
-            }
-            if (getVersionColumns != null) {
-                getVersionColumns.close();
-            }
-            if (getColumnPrivileges != null) {
-                getColumnPrivileges.close();
-            }
-            if (getGeneratedKeys != null) {
-                getGeneratedKeys.close();
-            }
-
-            getTables = null;
-            getTableTypes = null;
-            getTypeInfo = null;
-            getCatalogs = null;
-            getSchemas = null;
-            getUDTs = null;
-            getColumnsTblName = null;
-            getSuperTypes = null;
-            getSuperTables = null;
-            getTablePrivileges = null;
-            getIndexInfo = null;
-            getProcedures = null;
-            getProcedureColumns = null;
-            getAttributes = null;
-            getBestRowIdentifier = null;
-            getVersionColumns = null;
-            getColumnPrivileges = null;
-            getGeneratedKeys = null;
-        }
-        finally {
-            conn = null;
-        }
+        conn = null;
     }
 
     /**
@@ -298,5 +209,21 @@ public abstract class CoreDatabaseMetaData
      */
     protected void finalize() throws Throwable {
         close();
+    }
+    /**
+     * The main SQL statement executor.  All SQL destined for execution
+     * ultimately goes through this method. <p>
+     *
+     * The sqlStatement field for the result is set autoClose to comply with
+     * ResultSet.getStatement() semantics for result sets that are not from
+     * a user supplied Statement object. <p>
+     *
+     * @param sql SQL statement to execute
+     * @return the result of issuing the statement
+     * @throws SQLException is a database error occurs
+     */
+    protected ResultSet execute(String sql) throws SQLException {
+        Statement stat = conn.createStatement();
+        return ((CoreStatement)stat).executeQuery(sql, true);
     }
 }
